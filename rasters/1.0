@@ -1,0 +1,35 @@
+#%Module 1.0##############################
+## Rasters modulefile
+##
+## Sets environment for various raster functions
+## Author: Tara Larrue (tlarrue@bu.edu)
+
+proc ModulesHelp { } {
+    puts stdout "rasters Module"
+    puts stdout "Author: Tara Larrue (tlarrue@bu.edu)"
+    puts stdout ""
+    puts stdout "Rasters Function Menu:"
+    puts stdout "- clipRaster.py"
+    puts stdout "- intersectMask.py"
+    puts stdout ""
+    puts stdout "example: 'clipRaster.py source.bsq clip.bsq output.bsq -b 2 -n 255 -f modelRegion -a 222 228'"
+    puts stdout ""
+    puts stdout ""
+}
+
+module-whatis "Sets the environment for custom raster functions"
+
+
+#load all modules necessary for raster functions
+#note: gdal module loads python automatically
+#below saves important directory paths for processing
+module load pylibs/1.0
+
+#set environment variables
+#below this environment variable is defined in "trendr_setup" module
+set topDir $::env(LT_PACKAGES) 
+set modDir $topDir/rasters
+
+prepend-path PATH $modDir
+prepend-path PYTHONPATH $modDir
+

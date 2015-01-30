@@ -1,0 +1,35 @@
+#%Module 1.0##############################
+## LT Custom Python Libraries
+##
+## Sets environment for custom python libraries to be imported in scripts
+## Author: Tara Larrue (tlarrue@bu.edu)
+
+proc ModulesHelp { } {
+    puts stdout "pylibs Module"
+    puts stdout "Author: Tara Larrue (tlarrue@bu.edu)"
+    puts stdout ""
+    puts stdout "Allows custom python libraries, useful for LT scripting, to be imported into new scripts or python shell."
+    puts stdout ""
+    puts stdout "python modules available:"
+    puts stdout "- validation_funs"
+    puts stdout ""
+    puts stdout "To use modules, simple add for example, 'import validation_funs' at top of python script."
+    puts stdout ""
+}
+
+module-whatis "Sets the environment for landtrendr custom python libraries."
+
+
+#load all modules necessary for lt_processing scripts
+#note: gdal module loads python automatically
+#below saves important directory paths for processing
+module load trendr_setup/1.0 
+module load gdal/1.10.0
+
+#set environment variables
+#below this environment variable is defined in "trendr_setup" module
+set topDir $::env(LT_PACKAGES) 
+set modDir $topDir/lt_pylibs
+
+prepend-path PYTHONPATH $modDir
+

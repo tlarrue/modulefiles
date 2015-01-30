@@ -1,0 +1,27 @@
+#%Module 1.0##############################
+## trendr_setup modulefile
+##
+## Sets key directory paths as environment variables for easy access 
+## and more stability in LandTrendr scripts
+## Author: Tara Larrue (tlarrue@bu.edu)
+
+proc ModulesHelp { } {
+    puts stdout "lt_general Module"
+        puts stdout "Author: Tara Larrue (tlarrue@bu.edu)"
+    puts stdout ""
+    puts stdout "Sets new environment variables: " 
+    puts stdout "LT_PACKAGES, LT_SCENES, LT_USEAREA_MASKS, LANDSAT_POLYGONS"
+    puts stdout "LT_PROJECTIONS, LT_HELPERS"
+    puts stdout ""
+}
+
+module-whatis "Sets the environment variables for useful landtrendr directories"
+
+set topDir /projectnb/trenders
+
+setenv LT_PACKAGES $topDir/modules/packages
+setenv LT_SCENES $topDir/scenes:/auto/nfs-archive/ifs/noreplica/project/trenders/scenes
+setenv LT_USEAREA_MASKS $topDir/scenes/gnn_snapped_cmon_usearea_files
+setenv LANDSAT_POLYGONS $topDir/general_files/datasets/spatial_data/landsat_polygons
+setenv LT_PROJECTIONS $topDir/general_files/projections
+setenv LT_HELPERS $topDir/general_files/helperfiles

@@ -1,0 +1,58 @@
+#%Module 1.1##############################
+## LT Scene Processing modulefile
+##
+## Sets environment for landtrendr scene processing procedures
+## Author: Tara Larrue (tlarrue@bu.edu)
+
+proc ModulesHelp { } {
+    puts stdout "scene_processing Module"
+    puts stdout "Author: Tara Larrue (tlarrue@bu.edu)"
+    puts stdout ""
+    puts stdout "Most processing scripts are run using the line 'prep_script.py {processing step} {scene#} {submitToCluster? 0/1}'"
+    puts stdout "This line places processing qub file within {scene#}/scripts directory, then submits job to cluster."
+    puts stdout ""
+    puts stdout "prep_script.py Processing Step Menu:"
+    puts stdout "- convert"
+    puts stdout "- fmask_fix"
+    puts stdout "- seg_eval"
+    puts stdout "- seg; segw; seg_band5"
+    puts stdout "- lab_mr224; lab_mr227; lab_mr224_w; lab_mr227_w; lab_nbr; lab_band5; lab_nccn"
+    puts stdout "- hist_nomask; hist_plusmask; hist_w; hist_w_nomask; hist_band5_nomask"
+    puts stdout ""
+    puts stdout "example: 'prep_script.py convert 039030 1'"
+    puts stdout ""
+    puts stdout "To run processes on multiple scenes at once, use 'batchProcess.py {parameters.txt} {output dir}'"
+    puts stdout "This line places a .sh file containing prep_script.py statements in the output directory, then runs all processes."
+    puts stdout "Parameters text file should look something like this:"
+    puts stdout "'My Batch Job"
+    puts stdout "035035, convert"
+    puts stdout "036036, convert"
+    puts stdout "037037, segw'"
+    puts stdout ""
+    puts stdout "Other executables available with this module include:"
+    puts stdout "- ledapsSubmit.py {scene#}"
+    puts stdout "- generate_useareas.py {scene#} ({scene2#}) ..."
+    puts stdout ""
+}
+
+module-whatis "Sets the environment for landtrendr scene processing scripts"
+
+
+#load all modules necessary for lt_processing scripts
+#note: gdal module loads python automatically
+#below saves important directory paths for processing
+module load trendr_setup/1.0 
+module load gdal/1.10.0
+module load envi/4.8
+#below contains LEDAPS script
+module load batch_landsat/v3 
+
+#set environment variables
+#below this environment variable is defined in "trendr_setup" module
+set topDir $::env(LT_PACKAGES) 
+set modDir $topDir/scene_processing
+
+#you will also need to adjust idl path through your idl_startup.pro file!
+prepend-path PATH $modDir
+prepend-path PYTHONPATH $modDir
+
