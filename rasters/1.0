@@ -23,7 +23,7 @@ module-whatis "Sets the environment for custom raster functions"
 #load all modules necessary for raster functions
 #note: gdal module loads python automatically
 #below saves important directory paths for processing
-module load pylibs/1.0
+module load lt_pylibs/1.0
 
 #set environment variables
 #below this environment variable is defined in "trendr_setup" module
